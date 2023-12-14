@@ -1,0 +1,74 @@
+deeply:
+    nested:
+        - enabled: true
+          kind: boolean
+          name: example_boolean
+          value: true
+        - enabled: true
+          kind: boolean
+          name: example_invalid_boolean
+          value: a string
+        - enabled: false
+          kind: boolean
+          name: example_disabled_boolean
+          value: true
+        - enabled: true
+          kind: string
+          name: example_named_string
+          value: medium
+        - enabled: true
+          kind: string
+          name: example_invalid_named_string
+          value: true
+        - enabled: false
+          kind: string
+          name: example_disabled_named_string
+          variant: medium
+        - enabled: true
+          kind: number
+          name: example_named_number
+          variant: medium
+          variants:
+            large: 2048
+            medium: 128
+            small: 8
+        - enabled: true
+          kind: number
+          name: example_invalid_named_number
+          variant: medium
+          variants:
+            large: a string
+            medium: a string
+            small: a string
+        - enabled: false
+          kind: number
+          name: example_disabled_named_number
+          variant: medium
+          variants:
+            large: 2048
+            medium: 128
+            small: 8
+        - enabled: true
+          kind: float
+          name: example_named_float
+          variant: e
+          variants:
+            e: 2.718281828459045
+            phi: 1.618033988749894
+            pi: 3.141592653589793
+        - enabled: true
+          kind: float
+          name: example_invalid_named_float
+          variant: e
+          variants:
+            e: a string
+            phi: a string
+            pi: a string
+        - enabled: false
+          kind: float
+          name: example_disabled_named_float
+          variant: e
+          variants:
+            e: 2.718281828459045
+            phi: 1.618033988749894
+            pi: 3.141592653589793
