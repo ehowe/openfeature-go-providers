@@ -31,19 +31,19 @@ func NewFileProvider(path string, format string, deepKeys []string) FileProvider
 }
 
 // Metadata returns the metadata of the provider
-func (p *FileProvider) Metadata() openfeature.Metadata {
+func (p FileProvider) Metadata() openfeature.Metadata {
 	return openfeature.Metadata{
 		Name: "file-flag-evaluator",
 	}
 }
 
 // Hooks returns hooks
-func (p *FileProvider) Hooks() []openfeature.Hook {
+func (p FileProvider) Hooks() []openfeature.Hook {
 	return []openfeature.Hook{}
 }
 
 // BooleanEvaluation returns a boolean flag
-func (p *FileProvider) BooleanEvaluation(ctx context.Context, flagKey string, defaultValue bool, evalCtx openfeature.FlattenedContext) openfeature.BoolResolutionDetail {
+func (p FileProvider) BooleanEvaluation(ctx context.Context, flagKey string, defaultValue bool, evalCtx openfeature.FlattenedContext) openfeature.BoolResolutionDetail {
 	res := p.resolveFlag(flagKey, defaultValue, evalCtx)
 	v, ok := res.Value.(bool)
 	if !ok {
@@ -63,7 +63,7 @@ func (p *FileProvider) BooleanEvaluation(ctx context.Context, flagKey string, de
 }
 
 // StringEvaluation returns a string flag
-func (p *FileProvider) StringEvaluation(ctx context.Context, flagKey string, defaultValue string, evalCtx openfeature.FlattenedContext) openfeature.StringResolutionDetail {
+func (p FileProvider) StringEvaluation(ctx context.Context, flagKey string, defaultValue string, evalCtx openfeature.FlattenedContext) openfeature.StringResolutionDetail {
 	res := p.resolveFlag(flagKey, defaultValue, evalCtx)
 	v, ok := res.Value.(string)
 	if !ok {
@@ -83,7 +83,7 @@ func (p *FileProvider) StringEvaluation(ctx context.Context, flagKey string, def
 }
 
 // IntEvaluation returns an int flag
-func (p *FileProvider) IntEvaluation(ctx context.Context, flagKey string, defaultValue int64, evalCtx openfeature.FlattenedContext) openfeature.IntResolutionDetail {
+func (p FileProvider) IntEvaluation(ctx context.Context, flagKey string, defaultValue int64, evalCtx openfeature.FlattenedContext) openfeature.IntResolutionDetail {
 	res := p.resolveFlag(flagKey, defaultValue, evalCtx)
 	v, ok := res.Value.(float64)
 	if !ok {
@@ -103,7 +103,7 @@ func (p *FileProvider) IntEvaluation(ctx context.Context, flagKey string, defaul
 }
 
 // FloatEvaluation returns a float flag
-func (p *FileProvider) FloatEvaluation(ctx context.Context, flagKey string, defaultValue float64, evalCtx openfeature.FlattenedContext) openfeature.FloatResolutionDetail {
+func (p FileProvider) FloatEvaluation(ctx context.Context, flagKey string, defaultValue float64, evalCtx openfeature.FlattenedContext) openfeature.FloatResolutionDetail {
 	res := p.resolveFlag(flagKey, defaultValue, evalCtx)
 	v, ok := res.Value.(float64)
 	if !ok {
@@ -123,11 +123,11 @@ func (p *FileProvider) FloatEvaluation(ctx context.Context, flagKey string, defa
 }
 
 // ObjectEvaluation returns an object flag
-func (p *FileProvider) ObjectEvaluation(ctx context.Context, flagKey string, defaultValue interface{}, evalCtx openfeature.FlattenedContext) openfeature.InterfaceResolutionDetail {
+func (p FileProvider) ObjectEvaluation(ctx context.Context, flagKey string, defaultValue interface{}, evalCtx openfeature.FlattenedContext) openfeature.InterfaceResolutionDetail {
 	return p.resolveFlag(flagKey, defaultValue, evalCtx)
 }
 
-func (p *FileProvider) resolveFlag(flagKey string, defaultValue interface{}, evalCtx openfeature.FlattenedContext) openfeature.InterfaceResolutionDetail {
+func (p FileProvider) resolveFlag(flagKey string, defaultValue interface{}, evalCtx openfeature.FlattenedContext) openfeature.InterfaceResolutionDetail {
 	// fetch the stored flag from environment variables
 	res, err := p.file.fetchFlag(flagKey)
 	if err != nil {
