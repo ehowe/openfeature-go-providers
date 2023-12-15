@@ -20,11 +20,12 @@ const (
 	ErrorFlagNotFound = "flag not found"
 )
 
-func NewFileProvider(path string, format string) FileProvider {
+func NewFileProvider(path string, format string, deepKeys []string) FileProvider {
 	return FileProvider{
 		file: file{
-			path:   path,
-			format: format,
+			path:     path,
+			format:   format,
+			deepKeys: deepKeys,
 		},
 	}
 }

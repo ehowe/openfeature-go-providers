@@ -57,17 +57,36 @@ func (f *file) readFile() error {
 		return err
 	}
 
+	if rawFlags == nil {
+		rawFlags = map[string]interface{}{}
+	}
+
 	nestedContent := make(map[string]interface{})
 	var nestedContents []interface{}
 
 	if len(f.deepKeys) > 0 {
+		resolveNestedKey := func(obj map[string]interface{}, key string) map[string]interface{} {
+			resolvedValue := obj[key]
+
+			if resolvedValue == nil {
+				return map[string]interface{}{}
+			} else {
+				return resolvedValue.(map[string]interface{})
+			}
+		}
 		for i, key := range f.deepKeys {
 			if i == 0 {
-				nestedContent = rawFlags.(map[string]interface{})[key].(map[string]interface{})
+				nestedContent = resolveNestedKey(rawFlags.(map[string]interface{}), key)
 			} else if i == len(f.deepKeys)-1 {
-				nestedContents = nestedContent[key].([]interface{})
+				resolvedValue := nestedContent[key]
+
+				if resolvedValue == nil {
+					nestedContents = []interface{}{}
+				} else {
+					nestedContents = nestedContent[key].([]interface{})
+				}
 			} else {
-				nestedContent = nestedContent[key].(map[string]interface{})
+				nestedContent = resolveNestedKey(nestedContent, key)
 			}
 		}
 	} else {
